@@ -1,0 +1,20 @@
+{
+  "name": "clip-finance-shares-token-subgraph",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "prepare:linea": "mustache config/linea.json subgraph.template.yaml > subgraph.yaml",
+    "deploy:linea": "goldsky subgraph deploy clip-finance-shares-token/v1",
+    "create-local": "graph create --node http://localhost:8020/ clip-finance-shares-token/v1",
+    "remove-local": "graph remove --node http://localhost:8020/ clip-finance-shares-token/v1",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 clip-finance-shares-token/v1"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.51.0",
+    "@graphprotocol/graph-ts": "0.31.0"
+  },
+  "devDependencies": {
+    "mustache": "^4.0.1"
+  }
+}
