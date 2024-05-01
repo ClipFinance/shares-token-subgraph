@@ -11,4 +11,17 @@ type Transfer @entity(immutable: true) {
 type User @entity {
   id: Bytes!
   balance: BigInt!
+  token : Bytes!
+  typeId: BigInt
+}
+
+type TransferSingle @entity(immutable: true) {
+  id: Bytes!
+  from: User!
+  to: User!
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  typeId: BigInt!
 }
