@@ -1,0 +1,455 @@
+specVersion: 0.0.4
+description: CF
+repository: none
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: erc20
+    network: linea
+    source:
+      address: "0xDD49bF14cAAE7a22bb6a58A76C4E998054859D9a"
+      abi: ERC20
+      startBlock: 1064528
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: Mendi_Leverage_WETH
+    network: linea
+    source:
+      address: "0x7c825e560Ae6d6643115096B4B61e8f8d6a19749"
+      abi: ERC20
+      startBlock: 3942408
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: Mendi_Leverage_WBTC
+    network: linea
+    source:
+      address: "0x07a92Af40b052A753187bc1A6E2874730A0D3F23"
+      abi: ERC20
+      startBlock: 3946402
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: USDCeWETH500SwapInside
+    network: linea
+    source:
+      address: "0x94858183646c0622D424F06f506D0faef6c915CD"
+      abi: ERC1155
+      startBlock: 3761836
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - TransferSingle
+      abis:
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/erc1155.ts
+  
+  - kind: ethereum/contract
+    name: wstETHWETH100SwapInside
+    network: linea
+    source:
+      address: "0x3c9814b133019CB1730a0E9696d8D5B14590206F"
+      abi: ERC1155
+      startBlock: 3766169
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - TransferSingle
+      abis:
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/erc1155.ts
+  
+  - kind: ethereum/contract
+    name: USDCUSDT100SwapInside
+    network: linea
+    source:
+      address: "0x5988f6F5C2DC462a23E376017C905fa0C3d91C84"
+      abi: ERC1155
+      startBlock: 3761834
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - TransferSingle
+      abis:
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/erc1155.ts
+
+  - kind: ethereum/contract
+    name: ezETHWETH500SwapInside
+    network: linea
+    source:
+      address: "0x9571695FCEF88f3a3A69a0b1de31A77f4d6CCd70"
+      abi: ERC1155
+      startBlock: 3766074
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - TransferSingle
+      abis:
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/erc1155.ts        
+
+  - kind: ethereum/contract
+    name: WBTCWETH500SwapInside
+    network: linea
+    source:
+      address: "0x93ADA4B5e50A72AEbc7D653694066a928E84Bfc7"
+      abi: ERC1155
+      startBlock: 3765977
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - TransferSingle
+      abis:
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/erc1155.ts   
+
+  - kind: ethereum/contract
+    name: WBTCWETH100SwapInside
+    network: linea
+    source:
+      address: "0x6AC3D29d4162Bb2FADA6aE647aA6B0C5bBb73300"
+      abi: ERC1155
+      startBlock: 3765897
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - TransferSingle
+      abis:
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/erc1155.ts   
+
+  - kind: ethereum/contract
+    name: USDCaxlUSDC100SwapInside
+    network: linea
+    source:
+      address: "0x0e9871726415c845b7Bf0D46124654e4Fbc25D6A"
+      abi: ERC1155
+      startBlock: 3765836
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - TransferSingle
+      abis:
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/erc1155.ts   
+  - kind: ethereum/contract
+    name: USDCDAI100SwapInside
+    network: linea
+    source:
+      address: "0xE7cF8C560A01c476Cdd1d6dEA985cb9fa61B2A5B"
+      abi: ERC1155
+      startBlock: 3765735
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - TransferSingle
+      abis:
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/erc1155.ts   
+
+  - kind: ethereum/contract
+    name: USDCWETH100SwapInside
+    network: linea
+    source:
+      address: "0xb1d30C1901211704c85BE6A5f83edCCEbB15e91a"
+      abi: ERC1155
+      startBlock: 3765427
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - TransferSingle
+      abis:
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/erc1155.ts 
+  - kind: ethereum/contract
+    name: Mendi_non_Leverage_WETH
+    network: linea
+    source:
+      address: "0xF37d1F5DC65fe553745c79459004E94Af9F61Ff3"
+      abi: ERC20
+      startBlock: 4249578
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: Mendi_non_Leverage_DAI
+    network: linea
+    source:
+      address: "0xb79F535a1aad915348eA278E54C37be6C568e93c"
+      abi: ERC20
+      startBlock: 4248761
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: Mendi_non_Leverage_USDС
+    network: linea
+    source:
+      address: "0xB99196cbe4e2B85d0e8597A3f25967Bf303D6388"
+      abi: ERC20
+      startBlock: 4238286
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: Mendi_non_Leverage_WBTC
+    network: linea
+    source:
+      address: "0x464eEfB9253d9E3bF6ED370F3DD4b222b86fAFf7"
+      abi: ERC20
+      startBlock: 4237428
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: Mendi_non_Leverage_wstETH
+    network: linea
+    source:
+      address: "0x9EbB90358d60e36688baD15B8a914E074b1A1C9b"
+      abi: ERC20
+      startBlock: 4236591
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: Mendi_non_Leverage_esETH
+    network: linea
+    source:
+      address: "0xc3c7ec1046AAF64013266F27424082dBdB1c9dB2"
+      abi: ERC20
+      startBlock: 4236168
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: Mendi_Leverage_DAI
+    network: linea
+    source:
+      address: "0xB00Ad70C6A0d58372199AbEB33F46058d02FFBBC"
+      abi: ERC20
+      startBlock: 4211830
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: Mendi_Leverage_USDT
+    network: linea
+    source:
+      address: "0x2528c7B8c7c0d6Ab4461BbAa14F5905Ea93ad837"
+      abi: ERC20
+      startBlock: 4208685
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: Mendi_Leverage_wstETH
+    network: linea
+    source:
+      address: "0xfdC83eC519A4E24edC88E5bD57298edd5451651f"
+      abi: ERC20
+      startBlock: 4208232
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  - kind: ethereum/contract
+    name: Mendi_Leverage_USDC
+    network: linea
+    source:
+      address: "0xe3638a0B74b5A5C4a220163A05EB6b334e8a165d"
+      abi: ERC20
+      startBlock: 4207877
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/erc20.ts
+  
+  
