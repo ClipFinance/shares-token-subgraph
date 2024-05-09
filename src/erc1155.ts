@@ -12,7 +12,6 @@ function getUser(id: Bytes, typeId: BigInt, contract: Bytes): User {
   const newUser = new User(id.concat(contract).concat(Bytes.fromHexString((typeId.plus(BigInt.fromString("17"))).toHexString())));
   newUser.balance = BigInt.zero();
   newUser.token = contract;
-  newUser.typeId = typeId;
   return newUser;
 }
 

@@ -12,7 +12,18 @@ type User @entity {
   id: Bytes!
   balance: BigInt!
   token : Bytes!
-  typeId: BigInt
+}
+
+type UserShares @entity {
+  id: Bytes!
+  shares0: BigInt!
+  shares1: BigInt!
+}
+
+type SharePrice @entity {
+  id: Bytes!
+  price0: BigInt!
+  price1: BigInt!
 }
 
 type TransferSingle @entity(immutable: true) {
@@ -24,4 +35,50 @@ type TransferSingle @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
   typeId: BigInt!
+}
+
+type Deposit @entity(immutable: true) {
+  id: Bytes!
+  depositor: Bytes!
+  amountA: BigInt!
+  amountB: BigInt!
+  compound: Boolean!
+}
+
+type DepositPair @entity(immutable: true) {
+  id: Bytes!
+  depositor: Bytes!
+  amountA: BigInt!
+  amountB: BigInt!
+  compound: Boolean!
+}
+
+type Withdrawn @entity(immutable: true) {
+  id: Bytes!
+  withdrawer: Bytes!
+  amountWithdrawn: BigInt!
+  sharesBurned: BigInt!
+}
+
+type WithdrawnNonCompounding @entity(immutable: true) {
+  id: Bytes!
+  withdrawer: Bytes!
+  amountWithdrawn: BigInt!
+  sharesBurned: BigInt!
+}
+
+type WithdrawnPair @entity(immutable: true) {
+  id: Bytes!
+  withdrawer: Bytes!
+  burnAmount: BigInt!
+  compounding: Boolean!
+  amountAWithdrawn: BigInt!
+  amountBWithdrawn: BigInt!
+}
+
+type WithdrawnAll @entity(immutable: true) {
+  id: Bytes!
+  withdrawer: Bytes!
+  amountWithdrawn: BigInt!
+  sharesBurned: BigInt!
 }

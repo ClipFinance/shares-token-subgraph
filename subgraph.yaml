@@ -56,30 +56,38 @@ dataSources:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Transfer
-      abis:
+     abis:
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/erc20.ts
+      file: ./src/erc20.ts     - Transfer
+    
   - kind: ethereum/contract
     name: USDCeWETH500SwapInside
     network: linea
     source:
       address: "0x94858183646c0622D424F06f506D0faef6c915CD"
-      abi: ERC1155
+      abi: PCLBase
       startBlock: 3761836
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
+        - Deposit
+        - DepositPair
+        - Withdrawn
+        - WithdrawnNonCompounding
+        - WithdrawnPair
+        - WithdrawnAll
         - TransferSingle
       abis:
+        - name: PCLBase
+          file: ./abis/PCLBase.json
         - name: ERC1155
-          file: ./abis/ERC1155.json
+          file: ./abis/PCLBase.json
       eventHandlers:
         - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
           handler: handleTransferSingle
