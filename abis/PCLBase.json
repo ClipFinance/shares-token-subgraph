@@ -1090,7 +1090,7 @@
   },
   {
     "inputs": [],
-    "name": "tokenA",
+    "name": "token0",
     "outputs": [
       {
         "internalType": "contract IERC20Metadata",
@@ -1103,12 +1103,25 @@
   },
   {
     "inputs": [],
-    "name": "tokenB",
+    "name": "token1",
     "outputs": [
       {
         "internalType": "contract IERC20Metadata",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "compoundShareRate",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",

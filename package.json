@@ -6,9 +6,9 @@
     "build": "graph build",
     "prepare:linea": "mustache config/linea.json subgraph.template.yaml > subgraph.yaml",
     "deploy:linea": "goldsky subgraph deploy clip-finance-shares-token/v2.5",
-    "create-local": "graph create --node http://localhost:8020/ clip-finance-shares-token/v2.5",
-    "remove-local": "graph remove --node http://localhost:8020/ clip-finance-shares-token/v2.5",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 clip-finance-shares-token/v2.5"
+    "create-local": "graph create --node http://localhost:8020/ clip-finance-shares-token",
+    "remove-local": "graph remove --node http://localhost:8020/ clip-finance-shares-token",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 clip-finance-shares-token"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.71.0",
