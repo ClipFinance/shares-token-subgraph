@@ -1,4 +1,4 @@
-import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts";
+import { BigInt } from "@graphprotocol/graph-ts";
 import { 
   Deposit as DepositEvent, 
   DepositPair as DepositPairEvent, 
@@ -6,50 +6,14 @@ import {
   WithdrawnNonCompounding as WithdrawnNonCompoundingEvent, 
   WithdrawnPair as WithdrawnPairEvent, 
   WithdrawnAll as WithdrawnAllEvent, 
-  PCLBase
-} from "../generated/USDCeWETH500SwapInside/PCLBase";
-import { ERC20 } from "../generated/USDCeWETH500SwapInside/ERC20";
+  PCLBaseSwapInside
+} from "../generated/templates/PCLBaseSwapInside/PCLBaseSwapInside";
 
-import { TransferSingle as TransferSingleEvent} from "../generated/USDCeWETH500SwapInside/ERC1155";
-import {  SharePrice, User, UserShares } from "../generated/schema";
+import { TransferSingle as TransferSingleEvent} from "../generated/templates/PCLBaseSwapInside/ERC1155";
+import { getUserShares, getUser, calcBalance, getSharePrice, calcSharePrice } from "./utils";
+
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
-
-function getUserShares(id: Bytes, contract: Bytes): UserShares {
-  const userShares = UserShares.load(id.concat(contract));
-  if (userShares !== null) {
-    return userShares as UserShares;
-  }
-
-  const newUserShares = new UserShares(id.concat(contract));
-  newUserShares.shares0 = BigInt.zero();
-  newUserShares.shares1 = BigInt.zero();
-  return newUserShares;
-}
-
-function getUser(id: Bytes, contract: Bytes, token: Address): User {
-  const user = User.load(id.concat(contract).concat(token));
-  if (user !== null) {
-    return user as User;
-  }
-  const newUser = new User(id.concat(contract).concat(token));
-  newUser.balance = BigInt.zero();
-  newUser.token   = token;
-  const erc20 = ERC20.bind(token);
-  newUser.tokenSymbol = erc20.symbol();
-  return newUser;
-}
-
-function getSharePrice(contract: Bytes): SharePrice {
-  const sharePrice = SharePrice.load(contract);
-  if (sharePrice !== null) {
-    return sharePrice as SharePrice;
-  }
-  const newSharePrice = new SharePrice(contract);
-  newSharePrice.price0 = BigInt.zero();
-  newSharePrice.price1 = BigInt.zero();
-  return newSharePrice;
-}
 
 export function handleTransferSingle(event: TransferSingleEvent): void {
   const contract = event.address;
@@ -63,9 +27,9 @@ export function handleTransferSingle(event: TransferSingleEvent): void {
   // Don't subtracts from the ZERO_ADDRESS (it's the one that mint the token)
   if (from.toHex() != ZERO_ADDRESS) {
     if (typeId.equals(BigInt.zero())) {
-      fromUserShares.shares0 = fromUserShares.shares0.minus(value);
+      fromUserShares.shares0 = fromUserShares.shares0.gt(value) ? fromUserShares.shares0.minus(value) : BigInt.zero();
     } else {
-      fromUserShares.shares1 = fromUserShares.shares1.minus(value);
+      fromUserShares.shares1 = fromUserShares.shares1.gt(value) ? fromUserShares.shares1.minus(value) : BigInt.zero();
     }
     fromUserShares.save();
   }
@@ -80,12 +44,8 @@ export function handleTransferSingle(event: TransferSingleEvent): void {
   }
 }
 
-function calcSharePrice(balance: BigInt, shares: BigInt): BigInt {
-  return balance.times(BigInt.fromString("1_000_000_000_000_000_000")).div(shares);
-}
-
 function doDeposit(event: DepositEvent): void {
-  const pclContract = PCLBase.bind(event.address);
+  const pclContract = PCLBaseSwapInside.bind(event.address);
   const tokenA = pclContract.token0();
   const tokenB = pclContract.token1();
   const contract = event.address;
@@ -112,12 +72,8 @@ export function handleDepositPair(event: DepositPairEvent): void {
     event.transaction, event.parameters, event.receipt));
 }
 
-function calcBalance(oldBalance: BigInt, shares: BigInt, sharesBurned: BigInt) : BigInt {
-  return oldBalance.times(shares).div(shares.plus(sharesBurned));
-}
-
 export function handleWithdrawn(event: WithdrawnEvent): void {
-  const pclContract = PCLBase.bind(event.address);
+  const pclContract = PCLBaseSwapInside.bind(event.address);
   const tokenA = pclContract.token0();
   const tokenB = pclContract.token1();
   const contract = event.address;
@@ -139,7 +95,7 @@ export function handleWithdrawn(event: WithdrawnEvent): void {
 }
 
 export function handleWithdrawnNonCompounding(event: WithdrawnNonCompoundingEvent): void {
-  const pclContract = PCLBase.bind(event.address);
+  const pclContract = PCLBaseSwapInside.bind(event.address);
   const tokenA = pclContract.token0();
   const tokenB = pclContract.token1();
   const contract = event.address;
@@ -158,7 +114,7 @@ export function handleWithdrawnNonCompounding(event: WithdrawnNonCompoundingEven
 }
 
 export function handleWithdrawnPair(event: WithdrawnPairEvent): void {
-  const pclContract = PCLBase.bind(event.address);
+  const pclContract = PCLBaseSwapInside.bind(event.address);
   const tokenA = pclContract.token0();
   const tokenB = pclContract.token1();
   const contract = event.address;
@@ -196,7 +152,7 @@ export function handleWithdrawnPair(event: WithdrawnPairEvent): void {
 }
 
 export function handleWithdrawnAll(event: WithdrawnAllEvent): void {
-  const pclContract = PCLBase.bind(event.address);
+  const pclContract = PCLBaseSwapInside.bind(event.address);
   const tokenA = pclContract.token0();
   const tokenB = pclContract.token1();
   const contract = event.address;

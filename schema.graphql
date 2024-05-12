@@ -15,7 +15,7 @@ type User @entity {
   tokenSymbol: String!
 }
 
-type UserShares @entity {
+type UserShare @entity {
   id: Bytes!
   shares0: BigInt!
   shares1: BigInt!
@@ -82,4 +82,10 @@ type WithdrawnAll @entity(immutable: true) {
   withdrawer: Bytes!
   amountWithdrawn: BigInt!
   sharesBurned: BigInt!
+}
+
+type VaultAdded @entity(immutable: true) {
+  id: Bytes!
+  vault: Bytes!
+  data: Bytes
 }
