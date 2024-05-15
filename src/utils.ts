@@ -2,6 +2,8 @@ import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts";
 import {  SharePrice, User, UserShare } from "../generated/schema";
 import { ERC20 } from "../generated/templates/PCLBaseSwapInside/ERC20";
 
+export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
+
 export function getUserShares(id: Bytes, contract: Bytes): UserShare {
   const userShares = UserShare.load(id.concat(contract));
   if (userShares !== null) {
@@ -27,15 +29,31 @@ export function getUser(id: Bytes, contract: Bytes, token: Address): User {
   return newUser;
 }
 
-export function getSharePrice(contract: Bytes): SharePrice {
+export function getSharePrice(contract: Bytes, token0: Bytes, token0Symbol: string, token1: Bytes, token1Symbol: string): SharePrice {
   const sharePrice = SharePrice.load(contract);
   if (sharePrice !== null) {
     return sharePrice as SharePrice;
   }
   const newSharePrice = new SharePrice(contract);
   newSharePrice.price0 = BigInt.zero();
+  newSharePrice.price01 = BigInt.zero();
   newSharePrice.price1 = BigInt.zero();
+  newSharePrice.price10 = BigInt.zero();
+  newSharePrice.token0 = token0;
+  newSharePrice.token0Symbol = token0Symbol;
+  newSharePrice.token1 = token1;
+  newSharePrice.token1Symbol = token1Symbol;
   return newSharePrice;
+}
+
+export function getSharePriceLazy(contract: Bytes, token0: Address, token1: Address): SharePrice {
+  const token0Contract = ERC20.bind(token0);
+  let token1Symbol = "";
+  if (token1 != Address.fromString(ZERO_ADDRESS)) {
+    const token1Contract = ERC20.bind(token1);
+    token1Symbol = token1Contract.symbol();
+  }
+  return getSharePrice(contract, token0, token0Contract.symbol(), token1, token1Symbol);
 }
 
 export function calcSharePrice(balance: BigInt, shares: BigInt): BigInt {

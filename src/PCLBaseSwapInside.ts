@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts";
+import { BigInt, Address } from "@graphprotocol/graph-ts";
 import { 
   Deposit as DepositEvent, 
   DepositPair as DepositPairEvent, 
@@ -8,9 +8,14 @@ import {
   WithdrawnAll as WithdrawnAllEvent, 
   PCLBaseSwapInside
 } from "../generated/templates/PCLBaseSwapInside/PCLBaseSwapInside";
+import {
+  Burned as BurnedEvent,
+  Minted as MintedEvent
+} from "../generated/templates/PHyperPoolSwapInside/PHyperPoolSwapInside";
 
 import { TransferSingle as TransferSingleEvent} from "../generated/templates/PCLBaseSwapInside/ERC1155";
-import { getUserShares, getUser, calcBalance, getSharePrice, calcSharePrice } from "./utils";
+import { getUserShares, getUser, calcBalance, getSharePrice, calcSharePrice, getSharePriceLazy } from "./utils";
+import { MintedBurned } from "../generated/schema";
 
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -46,21 +51,20 @@ export function handleTransferSingle(event: TransferSingleEvent): void {
 
 function doDeposit(event: DepositEvent): void {
   const pclContract = PCLBaseSwapInside.bind(event.address);
-  const tokenA = pclContract.token0();
-  const tokenB = pclContract.token1();
-  const contract = event.address;
-  const depositor = event.params.depositor;
-  const amountA   = event.params.amountA;
-  const amountB   = event.params.amountB;
+  const token0 = pclContract.token0();
+  const token1 = pclContract.token1();
+  const hyperPoolContract = pclContract.liquidityHypervisor();
 
-  const userA = getUser(depositor, contract, tokenA);
-  const userB = getUser(depositor, contract, tokenB);
-  
-  userA.balance = userA.balance.plus(amountA);
-  userB.balance = userB.balance.plus(amountB);
-
-  userA.save();
-  userB.save();
+  const mintedBurned = getMintedBurned(hyperPoolContract);
+  const sharePrice = getSharePriceLazy(event.address, token0, token1);
+  if (event.params.compounding) {
+    sharePrice.price1 = calcSharePrice(mintedBurned.amount1, mintedBurned.amount);
+    sharePrice.price10 = calcSharePrice(mintedBurned.amount0, mintedBurned.amount);
+  }  else {
+    sharePrice.price0 = calcSharePrice(mintedBurned.amount0, mintedBurned.amount);
+    sharePrice.price01 = calcSharePrice(mintedBurned.amount1, mintedBurned.amount);
+  }
+  sharePrice.save();
 }
 
 export function handleDeposit(event: DepositEvent): void {
@@ -74,101 +78,85 @@ export function handleDepositPair(event: DepositPairEvent): void {
 
 export function handleWithdrawn(event: WithdrawnEvent): void {
   const pclContract = PCLBaseSwapInside.bind(event.address);
-  const tokenA = pclContract.token0();
-  const tokenB = pclContract.token1();
-  const contract = event.address;
-  const withdrawer = event.params.withdrawer;
-  let sharesBurned    = event.params.sharesBurned;
+  const token0 = pclContract.token0();
+  const token1 = pclContract.token1();
   
-  const userA = getUser(withdrawer, contract, tokenA);
-  const userB = getUser(withdrawer, contract, tokenB);
-  const userShares = getUserShares(withdrawer, contract);
-  if (userShares.shares1.plus(sharesBurned) !== BigInt.zero()) {
-    sharesBurned = sharesBurned
-      .times(pclContract.compoundShareRate())
-      .div(BigInt.fromString("1_000_000_000_000_000_000"));
-    userA.balance = calcBalance(userA.balance, userShares.shares1, sharesBurned);
-    userB.balance = calcBalance(userB.balance, userShares.shares1, sharesBurned);
-    userA.save();
-    userB.save();
-  }
+  const hyperPoolContract = pclContract.liquidityHypervisor();
+  const mintedBurned      = getMintedBurned(hyperPoolContract);
+  const sharePrice        = getSharePriceLazy(event.address, token0, token1);
+  sharePrice.price1       = calcSharePrice(mintedBurned.amount1, mintedBurned.amount);
+  sharePrice.price10      = calcSharePrice(mintedBurned.amount0, mintedBurned.amount);
+  sharePrice.save();
 }
 
 export function handleWithdrawnNonCompounding(event: WithdrawnNonCompoundingEvent): void {
   const pclContract = PCLBaseSwapInside.bind(event.address);
-  const tokenA = pclContract.token0();
-  const tokenB = pclContract.token1();
-  const contract = event.address;
-  const withdrawer = event.params.withdrawer;
-  const sharesBurned = event.params.sharesBurned;
-  
-  const userA = getUser(withdrawer, contract, tokenA);
-  const userB = getUser(withdrawer, contract, tokenB);
-  const userShares = getUserShares(withdrawer, contract);
-  if (userShares.shares0.plus(sharesBurned) !== BigInt.zero()) {
-    userA.balance = calcBalance(userA.balance, userShares.shares0, sharesBurned);
-    userB.balance = calcBalance(userB.balance, userShares.shares0, sharesBurned);
-    userA.save();
-    userB.save();
-  }
+  const token0 = pclContract.token0();
+  const token1 = pclContract.token1();
+  const hyperPoolContract = pclContract.liquidityHypervisor();
+
+  const mintedBurned = getMintedBurned(hyperPoolContract);
+  const sharePrice   = getSharePriceLazy(event.address, token0, token1);
+  sharePrice.price0  = calcSharePrice(mintedBurned.amount0, mintedBurned.amount);
+  sharePrice.price01 = calcSharePrice(mintedBurned.amount1, mintedBurned.amount);
+  sharePrice.save();
 }
 
 export function handleWithdrawnPair(event: WithdrawnPairEvent): void {
   const pclContract = PCLBaseSwapInside.bind(event.address);
   const tokenA = pclContract.token0();
   const tokenB = pclContract.token1();
-  const contract = event.address;
-  const withdrawer = event.params.withdrawer;
-  const amountAWithdrawn = event.params.amountAWithdrawn;
-  const amountBWithdrawn = event.params.amountBWithdrawn;
-  let sharesBurned     = event.params.burnAmount;
-  const compound         = event.params.compounding;
+  const hyperPoolContract = pclContract.liquidityHypervisor();
+  const mintedBurned      = getMintedBurned(hyperPoolContract);
+  const compound          = event.params.compounding;
 
-  const userA = getUser(withdrawer, contract, tokenA);
-  const userB = getUser(withdrawer, contract, tokenB);
-  const userShares = getUserShares(withdrawer, contract);
+  const sharePrice = getSharePriceLazy(event.address, tokenA, tokenB);
   if (compound) {
-    sharesBurned = sharesBurned
-      .times(pclContract.compoundShareRate())  
-      .div(BigInt.fromString("1_000_000_000_000_000_000"));
-      
-    userA.balance = calcBalance(userA.balance, userShares.shares1, sharesBurned);
-    userB.balance = calcBalance(userB.balance, userShares.shares1, sharesBurned);
+    sharePrice.price1 = calcSharePrice(mintedBurned.amount1, mintedBurned.amount);
+    sharePrice.price10 = calcSharePrice(mintedBurned.amount0, mintedBurned.amount);
   } else {
-    userA.balance = calcBalance(userA.balance, userShares.shares0, sharesBurned);
-    userB.balance = calcBalance(userB.balance, userShares.shares0, sharesBurned);
+    sharePrice.price0 = calcSharePrice(mintedBurned.amount0, mintedBurned.amount);
+    sharePrice.price01 = calcSharePrice(mintedBurned.amount1, mintedBurned.amount);
   }
-  if (sharesBurned !== BigInt.zero()) {
-    const sharePrice = getSharePrice(contract);
-    if (compound) {
-      sharePrice.price1 = calcSharePrice(amountAWithdrawn.equals(BigInt.zero()) ? amountBWithdrawn : amountAWithdrawn, sharesBurned);
-    } else {
-      sharePrice.price0 = calcSharePrice(amountAWithdrawn.equals(BigInt.zero()) ? amountBWithdrawn : amountAWithdrawn, sharesBurned);
-    }
-    sharePrice.save();
-  }
-  userA.save();
-  userB.save();
+  sharePrice.save();
 }
 
 export function handleWithdrawnAll(event: WithdrawnAllEvent): void {
-  const pclContract = PCLBaseSwapInside.bind(event.address);
-  const tokenA = pclContract.token0();
-  const tokenB = pclContract.token1();
   const contract = event.address;
   const withdrawer = event.params.withdrawer;
 
-  const userA = getUser(withdrawer, contract, tokenA);
-  const userB = getUser(withdrawer, contract, tokenB);
   const userShares = getUserShares(withdrawer, contract);
   
   userShares.shares0 = BigInt.zero();
   userShares.shares1 = BigInt.zero();
   userShares.save();
+}
 
-  userA.balance = BigInt.zero();
-  userB.balance = BigInt.zero();
-  
-  userA.save();
-  userB.save();
+function getMintedBurned(contract: Address): MintedBurned {
+  const mintedBurned = MintedBurned.load(contract);
+  if (mintedBurned !== null) {
+    return mintedBurned;
+  } 
+  const newMintedBurned = new MintedBurned(contract);
+  newMintedBurned.amount = BigInt.zero();
+  newMintedBurned.amount0 = BigInt.zero();
+  newMintedBurned.amount1 = BigInt.zero();
+  return newMintedBurned
+}
+
+
+export function handleBurned(event: BurnedEvent): void {
+  const mintedBurned = getMintedBurned(event.address);
+  mintedBurned.amount = event.params.burnAmount;
+  mintedBurned.amount0 = event.params.amount0Out;
+  mintedBurned.amount1 = event.params.amount1Out;
+  mintedBurned.save();
+}
+
+export function handleMinted(event: MintedEvent): void {
+  const mintedBurned = getMintedBurned(event.address);
+  mintedBurned.amount = event.params.mintAmount;
+  mintedBurned.amount0 = event.params.amount0In;
+  mintedBurned.amount1 = event.params.amount1In;
+  mintedBurned.save();
 }

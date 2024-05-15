@@ -22,8 +22,8 @@ dataSources:
           file: ./abis/VaultRegistry.json
         - name: ERC20
           file: ./abis/ERC20.json
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
       eventHandlers:
         - event: VaultAdded(address,bytes)
           handler: handleVaultAdded
@@ -368,7 +368,7 @@ dataSources:
     name: MendiNonLevETH
     network: linea
     source:
-      abi: Mendi
+      abi: MendiVault
       address: "0xF37d1F5DC65fe553745c79459004E94Af9F61Ff3"
       startBlock: 4316016
     mapping:
@@ -378,19 +378,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/Mendi.ts
+      file: ./src/MendiVault.ts
   - kind: ethereum/contract
     name: MendiNonLevDAI
     network: linea
     source:
-      abi: Mendi
+      abi: MendiVault
       address: "0xb79F535a1aad915348eA278E54C37be6C568e93c"
       startBlock: 4255354
     mapping:
@@ -400,19 +400,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/Mendi.ts
+      file: ./src/MendiVault.ts
   - kind: ethereum/contract
     name: MendiNonLevUSDT
     network: linea
     source:
-      abi: Mendi
+      abi: MendiVault
       address: "0x0c3897769d57ef1f0721ff291c766709a02991de"
       startBlock: 4255339
     mapping:
@@ -422,19 +422,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/Mendi.ts
+      file: ./src/MendiVault.ts
   - kind: ethereum/contract
     name: MendiNonLevUSDC
     network: linea
     source:
-      abi: Mendi
+      abi: MendiVault
       address: "0xB99196cbe4e2B85d0e8597A3f25967Bf303D6388"
       startBlock: 4241801
     mapping:
@@ -444,19 +444,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/Mendi.ts
+      file: ./src/MendiVault.ts
   - kind: ethereum/contract
     name: MendiNonLevWBTC
     network: linea
     source:
-      abi: Mendi
+      abi: MendiVault
       address: "0xa326b8c677986cA406c7e5567D996371E200057E"
       startBlock: 4238366
     mapping:
@@ -466,19 +466,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/Mendi.ts
+      file: ./src/MendiVault.ts
   - kind: ethereum/contract
     name: MendiNonLevwstETH
     network: linea
     source:
-      abi: Mendi
+      abi: MendiVault
       address: "0x9EbB90358d60e36688baD15B8a914E074b1A1C9b"
       startBlock: 4237885
     mapping:
@@ -488,19 +488,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/Mendi.ts
+      file: ./src/MendiVault.ts
   - kind: ethereum/contract
     name: MendiLevDAI
     network: linea
     source:
-      abi: Mendi
+      abi: MendiVault
       address: "0xB00Ad70C6A0d58372199AbEB33F46058d02FFBBC"
       startBlock: 4232537
     mapping:
@@ -510,19 +510,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/Mendi.ts
+      file: ./src/MendiVault.ts
   - kind: ethereum/contract
     name: MendiLevUSDT
     network: linea
     source:
-      abi: Mendi
+      abi: MendiVault
       address: "0x2528c7b8c7c0d6ab4461bbaa14f5905ea93ad837"
       startBlock: 4232483
     mapping:
@@ -532,19 +532,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/Mendi.ts
+      file: ./src/MendiVault.ts
   - kind: ethereum/contract
     name: MendiLevwstETH
     network: linea
     source:
-      abi: Mendi
+      abi: MendiVault
       address: "0xfdC83eC519A4E24edC88E5bD57298edd5451651f"
       startBlock: 4232349
     mapping:
@@ -554,19 +554,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/Mendi.ts
+      file: ./src/MendiVault.ts
   - kind: ethereum/contract
     name: MendiLevUSDC
     network: linea
     source:
-      abi: Mendi
+      abi: MendiVault
       address: "0xe3638a0B74b5A5C4a220163A05EB6b334e8a165d"
       startBlock: 4232325
     mapping:
@@ -576,14 +576,214 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/Mendi.ts
+      file: ./src/MendiVault.ts
+  - kind: ethereum/contract
+    name: PHyperPoolSwapInsideUSDCUSDT100
+    network: linea
+    source:
+      abi: PHyperPoolSwapInside
+      address: "0x5757a514aef25ff8909614489766053400f5de86"
+      startBlock: 3627831
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+      abis:
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+      file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: PHyperPoolSwapInsidewstETHWETH100
+    network: linea
+    source:
+      abi: PHyperPoolSwapInside
+      address: "0x45389eb17c65d4f253CAc9FadE1F397D8874a7CA"
+      startBlock: 3766169
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+      abis:
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+      file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: PHyperPoolSwapInsideezETHWETH500
+    network: linea
+    source:
+      abi: PHyperPoolSwapInside
+      address: "0x7381218088362C8D23b91b953C43700C6cCcfc25"
+      startBlock: 3766074
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+      abis:
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+      file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: PHyperPoolSwapInsideWBTCWETH500
+    network: linea
+    source:
+      abi: PHyperPoolSwapInside
+      address: "0xe0d7F1F725f475e9Dd5AD91Fb3eD41aF75aF0D26"
+      startBlock: 3765977
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+      abis:
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+      file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: PHyperPoolSwapInsideWBTCWETH100
+    network: linea
+    source:
+      abi: PHyperPoolSwapInside
+      address: "0xe00eF633CaB32EfeCEE123214F361c2F8c6FBF33"
+      startBlock: 3765897
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+      abis:
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+      file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: PHyperPoolSwapInsideUSDCaxlUSDC100
+    network: linea
+    source:
+      abi: PHyperPoolSwapInside
+      address: "0x49F17F640be36E546233b52C1e8E3C06b7962f1D"
+      startBlock: 3765836
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+      abis:
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+      file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: PHyperPoolSwapInsideUSDCDAI100
+    network: linea
+    source:
+      abi: PHyperPoolSwapInside
+      address: "0xeC45B2706e2a1Fb38bA935f55D6F236FF0f85D79"
+      startBlock: 3765735
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+      abis:
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+      file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: PHyperPoolSwapInsideUSDCWETH100
+    network: linea
+    source:
+      abi: PHyperPoolSwapInside
+      address: "0xAf2f7B724F8FEc41AC7E4F9411464c5c78de3Fa8"
+      startBlock: 3765427
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+      abis:
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+      file: ./src/PCLBaseSwapInside.ts
 templates:
   - kind: ethereum/contract
     name: PCLBaseSwapInside
@@ -626,10 +826,33 @@ templates:
           handler: handleWithdrawnAll
       file: ./src/PCLBaseSwapInside.ts
   - kind: ethereum/contract
-    name: Mendi
+    name: PHyperPoolSwapInside
     network: linea
     source:
-      abi: Mendi
+      abi: PHyperPoolSwapInside
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+      abis:
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+      file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: MendiVault
+    network: linea
+    source:
+      abi: MendiVault
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.8
@@ -637,13 +860,35 @@ templates:
       entities:
         - Transfer
       abis:
-        - name: Mendi
-          file: ./abis/Mendi.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/Mendi.ts
-  
-  
+      file: ./src/MendiVault.ts
+  - kind: ethereum/contract
+    name: Mendi
+    network: linea
+    source:
+      abi: MendiLeverage
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Compound
+      abis:
+        - name: MendiLeverage
+          file: ./abis/MendiLeverage.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
+      eventHandlers:
+        - event: Compound(indexed address,uint256,uint256)
+          handler: handleCompound
+      file: ./src/MendiVault.ts
+    
+    

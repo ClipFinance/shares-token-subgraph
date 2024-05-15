@@ -24,13 +24,19 @@ type UserShare @entity {
 type SharePrice @entity {
   id: Bytes!
   price0: BigInt!
+  price01: BigInt
   price1: BigInt!
+  price10: BigInt
+  token0: Bytes!
+  token0Symbol: String!
+  token1: Bytes
+  token1Symbol: String
 }
 
 type TransferSingle @entity(immutable: true) {
   id: Bytes!
-  from: User!
-  to: User!
+  from: Bytes!
+  to: Bytes!
   value: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
@@ -88,4 +94,11 @@ type VaultAdded @entity(immutable: true) {
   id: Bytes!
   vault: Bytes!
   data: Bytes
+}
+
+type MintedBurned @entity {
+  id : Bytes!
+  amount: BigInt!
+  amount0: BigInt!
+  amount1: BigInt!
 }

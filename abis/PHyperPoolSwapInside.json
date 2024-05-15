@@ -1,0 +1,613 @@
+[
+  {
+    "inputs": [],
+    "name": "Address_DelegateCallToNonContract",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Address__LowLevelCallFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "errorCode",
+        "type": "uint256"
+      }
+    ],
+    "name": "Address__LowLevelCallFailedWithCustomErrorCode",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Address__LowLevelCallWithValueFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Address__LowLevelStaticCallFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ERC1967Upgrade_NewImplementationIsNotUUPS",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ERC1967Upgrade_UnsupportedProxiableUUID",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ERC1967_BeaconImplementationIsNotAContract",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ERC1967_NewAdminIsZeroAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ERC1967_NewBeaconIsNotAContract",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ERC1967_NewImplementationIsNotAContract",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FunctionMustBeCalledThroughActiveProxy",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FunctionMustBeCalledThroughDelegatecall",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Initializable_ContractIsInitializing",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Initializable__ContractIsAlreadyInitialized",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Initializable__ContractIsNotInitializing",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidAmount",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidTick",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MBPS",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Manipulation",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NoPermission",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "UUPSUpgradeable__MustNotBeCalledThroughDelegatecall",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroAmount",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "previousAdmin",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newAdmin",
+        "type": "address"
+      }
+    ],
+    "name": "AdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "beacon",
+        "type": "address"
+      }
+    ],
+    "name": "BeaconUpgraded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "burnAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount0Out",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount1Out",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint128",
+        "name": "liquidityBurned",
+        "type": "uint128"
+      }
+    ],
+    "name": "Burned",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "feesEarned0",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "feesEarned1",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int24",
+        "name": "lowerTick_",
+        "type": "int24"
+      },
+      {
+        "indexed": false,
+        "internalType": "int24",
+        "name": "upperTick_",
+        "type": "int24"
+      }
+    ],
+    "name": "FeesEarned",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "mintAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount0In",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount1In",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint128",
+        "name": "liquidityMinted",
+        "type": "uint128"
+      }
+    ],
+    "name": "Minted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "int24",
+        "name": "lowerTick_",
+        "type": "int24"
+      },
+      {
+        "indexed": false,
+        "internalType": "int24",
+        "name": "upperTick_",
+        "type": "int24"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint128",
+        "name": "liquidityBefore",
+        "type": "uint128"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint128",
+        "name": "liquidityAfter",
+        "type": "uint128"
+      }
+    ],
+    "name": "Rebalance",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "managerFeeBPS",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "managerTreasury",
+        "type": "address"
+      }
+    ],
+    "name": "UpdateManagerParams",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      }
+    ],
+    "name": "Upgraded",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "getIdentifiers",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int24",
+        "name": "_lowerTick",
+        "type": "int24"
+      },
+      {
+        "internalType": "int24",
+        "name": "_upperTick",
+        "type": "int24"
+      }
+    ],
+    "name": "getPositionID",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "positionID",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getPositionID",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "positionID",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getPositionNftData",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "nftId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int24",
+        "name": "lowerTick_",
+        "type": "int24"
+      },
+      {
+        "internalType": "int24",
+        "name": "upperTick_",
+        "type": "int24"
+      },
+      {
+        "internalType": "bool",
+        "name": "allocatedToFarming",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int24",
+        "name": "_lowerTick",
+        "type": "int24"
+      },
+      {
+        "internalType": "int24",
+        "name": "_upperTick",
+        "type": "int24"
+      }
+    ],
+    "name": "getPositionNftData",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "nftId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int24",
+        "name": "lowerTick_",
+        "type": "int24"
+      },
+      {
+        "internalType": "int24",
+        "name": "upperTick_",
+        "type": "int24"
+      },
+      {
+        "internalType": "bool",
+        "name": "allocatedToFarming",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "initializeData",
+        "type": "bytes"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "proxiableUUID",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "rewardTokenAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_dust0",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_dust1",
+        "type": "uint256"
+      }
+    ],
+    "name": "setDusts",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_maxSwapPriceThreshold",
+        "type": "uint256"
+      }
+    ],
+    "name": "setMaxSwapPriceThreshold",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_swapThreshold0",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_swapThreshold1",
+        "type": "uint256"
+      }
+    ],
+    "name": "setSwapThresholds",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalSharesIssued",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int16",
+        "name": "newManagerFeeBPS",
+        "type": "int16"
+      },
+      {
+        "internalType": "address",
+        "name": "newManagerTreasury",
+        "type": "address"
+      }
+    ],
+    "name": "updateManagerParams",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      }
+    ],
+    "name": "upgradeTo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "upgradeToAndCall",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  }
+]
