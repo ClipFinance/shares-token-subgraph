@@ -590,7 +590,7 @@ dataSources:
     source:
       abi: PHyperPoolSwapInside
       address: "0x5757a514aef25ff8909614489766053400f5de86"
-      startBlock: 3627831
+      startBlock: 3627831 
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.8
@@ -784,6 +784,26 @@ dataSources:
         - event: Minted(address,uint256,uint256,uint256,uint128)
           handler: handleMinted
       file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: SharesToken
+    network: linea
+    source:
+      abi: ERC20
+      address: "0xDD49bF14cAAE7a22bb6a58A76C4E998054859D9a"
+      startBlock: 1064774 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/SharesToken.ts
 templates:
   - kind: ethereum/contract
     name: PCLBaseSwapInside

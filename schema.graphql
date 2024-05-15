@@ -97,8 +97,14 @@ type VaultAdded @entity(immutable: true) {
 }
 
 type MintedBurned @entity {
-  id : Bytes!
+  id: Bytes!
   amount: BigInt!
   amount0: BigInt!
   amount1: BigInt!
 }
+
+type SharesTokenSharesCount @entity {
+  id: Bytes!
+  total: BigInt! 
+}
+

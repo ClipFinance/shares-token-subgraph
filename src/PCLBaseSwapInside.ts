@@ -14,7 +14,7 @@ import {
 } from "../generated/templates/PHyperPoolSwapInside/PHyperPoolSwapInside";
 
 import { TransferSingle as TransferSingleEvent} from "../generated/templates/PCLBaseSwapInside/ERC1155";
-import { getUserShares, getUser, calcBalance, getSharePrice, calcSharePrice, getSharePriceLazy } from "./utils";
+import { getUserShares, calcSharePrice, getSharePriceLazy } from "./utils";
 import { MintedBurned } from "../generated/schema";
 
 
