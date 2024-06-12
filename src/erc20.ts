@@ -1,7 +1,7 @@
 import { BigInt, BigDecimal, Bytes, log, Address } from "@graphprotocol/graph-ts";
 import { Transfer as TransferEvent } from "../generated/ERC20/ERC20";
 import { Transfer, User } from "../generated/schema";
-
+//.
 function getUser(id: Bytes): User {
   let user = User.load(id);
   if (user !== null) {
