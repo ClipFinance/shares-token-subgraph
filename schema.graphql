@@ -19,6 +19,7 @@ type UserShare @entity {
   id: Bytes!
   shares0: BigInt!
   shares1: BigInt!
+  nfts: [NFT!] @derivedFrom(field: "userShare")
 }
 
 type SharePrice @entity {
@@ -108,3 +109,26 @@ type SharesTokenSharesCount @entity {
   total: BigInt! 
 }
 
+type TransferNFT @entity(immutable: true) {
+  id: Bytes!
+  from: User!
+  to: User!
+  tokenId: BigInt!
+}
+
+type NFT @entity {
+  id: String!
+  userShare: UserShare
+  cycle: Cycle!
+  tokenAmountUniform: BigInt!
+  token: Bytes!
+}
+
+type Cycle @entity {
+  id: String!
+  nfts: [NFT!] @derivedFrom(field: "cycle")
+  startAt: BigInt
+  totalDepositedInUsd: BigInt
+  strategiesBalanceWithCompoundAndBatchDepositsInUsd: BigInt
+  pricePerShare: BigInt
+}

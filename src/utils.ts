@@ -1,8 +1,10 @@
 import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts";
-import {  SharePrice, User, UserShare } from "../generated/schema";
+import {  SharePrice, User, UserShare, NFT, Cycle } from "../generated/schema";
 import { ERC20 } from "../generated/templates/PCLBaseSwapInside/ERC20";
+import { ReceiptNFT } from "../generated/ReceiptNFT/ReceiptNFT";
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
+export const STRATEGY_ROUTER = "0x03A074D130144FcE6883F7EA3884C0a783d85Fb3";
 
 export function getUserShares(id: Bytes, contract: Bytes): UserShare {
   const userShares = UserShare.load(id.concat(contract));
@@ -62,4 +64,32 @@ export function calcSharePrice(balance: BigInt, shares: BigInt): BigInt {
 
 export function calcBalance(oldBalance: BigInt, shares: BigInt, sharesBurned: BigInt) : BigInt {
   return oldBalance.times(shares).div(shares.plus(sharesBurned));
+}
+
+export function getNFT(receiptId: BigInt, contractAddress: Address): NFT {
+  const nft = NFT.load(receiptId.toHexString());
+  if (nft != null) {
+    return nft;
+  }
+  const nftNew = new NFT(receiptId.toHexString());
+  const contract = ReceiptNFT.bind(contractAddress);
+  const nftInfo  = contract.getReceipt(receiptId);
+  nftNew.token   = nftInfo.token;
+  nftNew.cycle   = getCycle(nftInfo.cycleId).id;
+  nftNew.tokenAmountUniform = nftInfo.tokenAmountUniform;
+  return nftNew;
+}
+
+export function getUserSharesForNFT(userId: Bytes) : UserShare {
+  return getUserShares(userId, Bytes.fromHexString(STRATEGY_ROUTER));
+}
+
+export function getCycle(cycleId: BigInt) : Cycle {
+  const cycle = Cycle.load(cycleId.toHexString());
+  if (cycle != null) {
+    return cycle;
+  } 
+  const newCycle = new Cycle(cycleId.toHexString());
+  newCycle.save();
+  return newCycle;
 }

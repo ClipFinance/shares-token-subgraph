@@ -5,6 +5,50 @@ schema:
   file: ./schema.graphql
 dataSources: 
   - kind: ethereum/contract
+    name: ReceiptNFT
+    network: linea
+    source:
+      address: "0x4661Ac8b3Dbf8Db241Cc89a3EdeAD3c884900839"
+      abi    : ReceiptNFT
+      startBlock: 1064537
+    mapping: 
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - TransferNFT
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ReceiptNFT
+          file: ./abis/ReceiptNFT.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransferNFT
+      file: ./src/receiptNFT.ts
+  - kind: ethereum/contract
+    name: StrategyRouter
+    network: linea
+    source:
+      address: "0x03A074D130144FcE6883F7EA3884C0a783d85Fb3"
+      abi    : StrategyRouter
+      startBlock: 1064537
+    mapping: 
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - AllocateToStrategies
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: StrategyRouter
+          file: ./abis/StrategyRouter.json
+      eventHandlers:
+        - event: AllocateToStrategies(indexed uint256,uint256)
+          handler: handleAllocateToStrategies
+      file: ./src/strategyRouter.ts
+  - kind: ethereum/contract
     name: VaultRegistry
     network: linea
     source:
