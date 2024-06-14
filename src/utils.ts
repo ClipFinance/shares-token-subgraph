@@ -73,10 +73,15 @@ export function getNFT(receiptId: BigInt, contractAddress: Address): NFT {
   }
   const nftNew = new NFT(receiptId.toHexString());
   const contract = ReceiptNFT.bind(contractAddress);
-  const nftInfo  = contract.getReceipt(receiptId);
-  nftNew.token   = nftInfo.token;
-  nftNew.cycle   = getCycle(nftInfo.cycleId).id;
-  nftNew.tokenAmountUniform = nftInfo.tokenAmountUniform;
+  const nftInfo  = contract.try_getReceipt(receiptId);
+  if (nftInfo.reverted) {
+    nftNew.token = Address.fromString(ZERO_ADDRESS);
+    nftNew.tokenAmountUniform = BigInt.zero();
+  } else {
+    nftNew.token   = nftInfo.value.token;
+    nftNew.cycle   = getCycle(nftInfo.value.cycleId).id;
+    nftNew.tokenAmountUniform = nftInfo.value.tokenAmountUniform;
+  }
   return nftNew;
 }
 
