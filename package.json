@@ -4,8 +4,12 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "prepare:linea": "mustache config/linea.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:linea": "cp -a subgraph.linea.yaml subgraph.yaml",
+    "prepare:bsc": "cp -a subgraph.bsc.yaml subgraph.yaml",
+    "prepare:base": "cp -a subgraph.base.yaml subgraph.yaml",
     "deploy:linea": "goldsky subgraph deploy clip-finance-shares-token/v2.6",
+    "deploy:bsc"  : "goldsky subgraph deploy clip-finance-shares-token_bsc/v2.6",
+    "deploy:base" : "goldskt subgraph deploy clip-finance-shares-token_base/v2.6",
     "create-local": "graph create --node http://localhost:8020/ clip-finance-shares-token",
     "remove-local": "graph remove --node http://localhost:8020/ clip-finance-shares-token",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 clip-finance-shares-token"
