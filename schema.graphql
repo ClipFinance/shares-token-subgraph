@@ -119,7 +119,7 @@ type TransferNFT @entity(immutable: true) {
 type NFT @entity {
   id: String!
   userShare: UserShare
-  cycle: Cycle!
+  cycle: Cycle
   tokenAmountUniform: BigInt!
   token: Bytes!
 }
