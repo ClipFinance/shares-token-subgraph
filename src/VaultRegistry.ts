@@ -8,6 +8,8 @@ import {
   } from "../generated/templates";
 import { MendiVault as MendiVaultContract } from "../generated/templates/MendiVault/MendiVault";
 
+const REGISTRY_ADDRESS: Address = Address.fromString('0x02eA2e205695D31E0308FdC844Cbb2d41bf20275');
+
 export function handleVaultAdded(event: VaultAdded): void {
   if (event.params.data.at(31) == 1) {
     const key  = event.params.vault;
@@ -31,9 +33,16 @@ export function handleVaultAdded(event: VaultAdded): void {
       //skip to create PCLBaseSwapInside, because presented directly in the manifest
     } else if (key.equals(Address.fromHexString("0xAf2f7B724F8FEc41AC7E4F9411464c5c78de3Fa8"))) {
       //skip to create PCLBaseSwapInside, because presented directly in the manifest
-    } else {
-      PCLBaseSwapInside.create(Address.fromString(event.params.data.toHex().substring(154)));
-      PHyperPoolSwapInside.create(event.params.vault);
+    }  
+    else {
+      if (event.params.data.toHex().length > 155) {
+        PCLBaseSwapInside.create(Address.fromString(event.params.data.toHex().substring(154)));
+        PHyperPoolSwapInside.create(event.params.vault);
+      } else {
+        PHyperPoolSwapInside.create(event.params.vault);
+        const pHyperPool = PHyperPoolSwapInside.bind(event.params.vault);
+        const registry = Registry.bind(REGISTRY_ADDRESS)
+      }
     }
   } else if (event.params.data.at(31) == 3) {
     if (event.params.vault.equals(Address.fromString("0xF37d1F5DC65fe553745c79459004E94Af9F61Ff3"))) {    

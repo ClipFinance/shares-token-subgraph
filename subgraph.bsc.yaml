@@ -1,0 +1,207 @@
+specVersion: 0.0.4
+description: CF
+repository: none
+schema:
+  file: ./schema.graphql
+dataSources: 
+  - kind: ethereum/contract
+    name: ReceiptNFT
+    network: linea
+    source:
+      address: "0x4661Ac8b3Dbf8Db241Cc89a3EdeAD3c884900839"
+      abi    : ReceiptNFT
+      startBlock: 32711287
+    mapping: 
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - TransferNFT
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ReceiptNFT
+          file: ./abis/ReceiptNFT.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransferNFT
+      file: ./src/receiptNFT.ts
+  - kind: ethereum/contract
+    name: StrategyRouter
+    network: linea
+    source:
+      address: "0x03A074D130144FcE6883F7EA3884C0a783d85Fb3"
+      abi    : StrategyRouter
+      startBlock: 32711287
+    mapping: 
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - AllocateToStrategies
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: StrategyRouter
+          file: ./abis/StrategyRouter.json
+      eventHandlers:
+        - event: AllocateToStrategies(indexed uint256,uint256)
+          handler: handleAllocateToStrategies
+      file: ./src/strategyRouter.ts
+  - kind: ethereum/contract
+    name: VaultRegistry
+    network: linea
+    source:
+      address: "0x5A9B5E22be45d04c753863A916c4311f07bd4dF0"
+      abi    : VaultRegistry
+      startBlock: 36185914
+    mapping: 
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - VaultAdded
+      abis:
+        - name: VaultRegistry
+          file: ./abis/VaultRegistry.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
+        - name: Registry
+          file: ./abis/Registry.json
+      eventHandlers:
+        - event: VaultAdded(address,bytes)
+          handler: handleVaultAdded
+      file: ./src/vaultRegistry.ts
+  - kind: ethereum/contract
+    name: PHyperPoolUSDCUSDT100
+    network: linea
+    source:
+      abi: PHyperPoolSwapInside
+      address: "0xEEea7dD3c998aFd9f298C041E4AA8A3c41b02A6C"
+      startBlock: 35270298 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+      abis:
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+      file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: PCLBaseUSDCUSDT100
+    network: linea
+    source:
+      abi: PCLBaseSwapInside
+      address: "0x7811D7B33747F854cf918b9b64Ee4531944467C0"
+      startBlock: 35270305
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Deposit
+        - DepositPair
+        - Withdrawn
+        - WithdrawnNonCompounding
+        - WithdrawnPair
+        - WithdrawnAll
+        - TransferSingle
+      abis:
+        - name: PCLBaseSwapInside
+          file: ./abis/PCLBaseSwapInside.json
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+        - event: Deposit(indexed address,uint256,uint256,bool)
+          handler: handleDeposit
+        - event: DepositPair(indexed address,uint256,uint256,bool)
+          handler: handleDepositPair
+        - event: Withdrawn(indexed address,uint256,uint256)
+          handler: handleWithdrawn
+        - event: WithdrawnNonCompounding(indexed address,uint256,uint256)
+          handler: handleWithdrawnNonCompounding
+        - event: WithdrawnPair(indexed address,uint256,bool,uint256,uint256)
+          handler: handleWithdrawnPair
+        - event: WithdrawnAll(indexed address,uint256,uint256)
+          handler: handleWithdrawnAll
+      file: ./src/PCLBaseSwapInside.ts
+templates:
+  - kind: ethereum/contract
+    name: PCLBaseSwapInside
+    network: linea
+    source:
+      abi: PCLBaseSwapInside
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Deposit
+        - DepositPair
+        - Withdrawn
+        - WithdrawnNonCompounding
+        - WithdrawnPair
+        - WithdrawnAll
+        - TransferSingle
+      abis:
+        - name: PCLBaseSwapInside
+          file: ./abis/PCLBaseSwapInside.json
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+        - event: Deposit(indexed address,uint256,uint256,bool)
+          handler: handleDeposit
+        - event: DepositPair(indexed address,uint256,uint256,bool)
+          handler: handleDepositPair
+        - event: Withdrawn(indexed address,uint256,uint256)
+          handler: handleWithdrawn
+        - event: WithdrawnNonCompounding(indexed address,uint256,uint256)
+          handler: handleWithdrawnNonCompounding
+        - event: WithdrawnPair(indexed address,uint256,bool,uint256,uint256)
+          handler: handleWithdrawnPair
+        - event: WithdrawnAll(indexed address,uint256,uint256)
+          handler: handleWithdrawnAll
+      file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: PHyperPoolSwapInside
+    network: linea
+    source:
+      abi: PHyperPoolSwapInside
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+      abis:
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+      file: ./src/PCLBaseSwapInside.ts
