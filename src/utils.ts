@@ -86,7 +86,7 @@ export function getNFT(receiptId: BigInt, contractAddress: Address): NFT {
 }
 
 export function getUserSharesForNFT(userId: Bytes) : UserShare {
-  return getUserShares(userId, Bytes.fromHexString(STRATEGY_ROUTER));
+  return getUserShares(userId, Address.fromString(STRATEGY_ROUTER));
 }
 
 export function getCycle(cycleId: BigInt) : Cycle {

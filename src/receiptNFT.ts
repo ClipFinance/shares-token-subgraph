@@ -5,7 +5,9 @@ export function handleTransferNFT(event: TransferEvent): void {
   const tokenId = event.params.tokenId;
   const nft     = getNFT(tokenId, event.address);
   if (event.params.to.toHex() != ZERO_ADDRESS) {
-    nft.userShare = getUserSharesForNFT(event.params.to).id;
+    const userShares = getUserSharesForNFT(event.params.to);
+    userShares.save();
+    nft.userShare = userShares.id;
   } else if (nft.userShare) {
     nft.userShare = null;
   }
