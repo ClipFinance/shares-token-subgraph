@@ -4,7 +4,7 @@ import { ERC20 } from "../generated/templates/PCLBaseSwapInside/ERC20";
 import { ReceiptNFT } from "../generated/ReceiptNFT/ReceiptNFT";
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
-export const STRATEGY_ROUTER = "0x03A074D130144FcE6883F7EA3884C0a783d85Fb3";
+export const SHARES_TOKEN = "0xDD49bF14cAAE7a22bb6a58A76C4E998054859D9a";
 
 export function getUserShares(id: Bytes, contract: Bytes): UserShare {
   const userShares = UserShare.load(id.concat(contract));
@@ -86,7 +86,7 @@ export function getNFT(receiptId: BigInt, contractAddress: Address): NFT {
 }
 
 export function getUserSharesForNFT(userId: Bytes) : UserShare {
-  return getUserShares(userId, Address.fromString(STRATEGY_ROUTER));
+  return getUserShares(userId, Address.fromString(SHARES_TOKEN));
 }
 
 export function getCycle(cycleId: BigInt) : Cycle {
