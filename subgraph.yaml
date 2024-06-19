@@ -6,7 +6,7 @@ schema:
 dataSources: 
   - kind: ethereum/contract
     name: ReceiptNFT
-    network: linea
+    network: bsc
     source:
       address: "0x4661Ac8b3Dbf8Db241Cc89a3EdeAD3c884900839"
       abi    : ReceiptNFT
@@ -28,7 +28,7 @@ dataSources:
       file: ./src/receiptNFT.ts
   - kind: ethereum/contract
     name: StrategyRouter
-    network: linea
+    network: bsc
     source:
       address: "0x03A074D130144FcE6883F7EA3884C0a783d85Fb3"
       abi    : StrategyRouter
@@ -50,7 +50,7 @@ dataSources:
       file: ./src/strategyRouter.ts
   - kind: ethereum/contract
     name: VaultRegistry
-    network: linea
+    network: bsc
     source:
       address: "0x5A9B5E22be45d04c753863A916c4311f07bd4dF0"
       abi    : VaultRegistry
@@ -76,7 +76,7 @@ dataSources:
       file: ./src/vaultRegistry.ts
   - kind: ethereum/contract
     name: PHyperPoolUSDCUSDT100
-    network: linea
+    network: bsc
     source:
       abi: PHyperPoolSwapInside
       address: "0xEEea7dD3c998aFd9f298C041E4AA8A3c41b02A6C"
@@ -101,7 +101,7 @@ dataSources:
       file: ./src/PCLBaseSwapInside.ts
   - kind: ethereum/contract
     name: PCLBaseUSDCUSDT100
-    network: linea
+    network: bsc
     source:
       abi: PCLBaseSwapInside
       address: "0x7811D7B33747F854cf918b9b64Ee4531944467C0"
@@ -144,7 +144,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: PCLBaseSwapInside
-    network: linea
+    network: bsc
     source:
       abi: PCLBaseSwapInside
     mapping:
@@ -184,7 +184,7 @@ templates:
       file: ./src/PCLBaseSwapInside.ts
   - kind: ethereum/contract
     name: PHyperPoolSwapInside
-    network: linea
+    network: bsc
     source:
       abi: PHyperPoolSwapInside
     mapping:
@@ -205,3 +205,45 @@ templates:
         - event: Minted(address,uint256,uint256,uint256,uint128)
           handler: handleMinted
       file: ./src/PCLBaseSwapInside.ts
+  - kind: ethereum/contract
+    name: MendiVault
+    network: bsc
+    source:
+      abi: MendiVault
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MendiVault
+          file: ./abis/MendiVault.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/MendiVault.ts
+  - kind: ethereum/contract
+    name: Mendi
+    network: bsc
+    source:
+      abi: MendiLeverage
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Compound
+      abis:
+        - name: MendiLeverage
+          file: ./abis/MendiLeverage.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: MendiVault
+          file: ./abis/MendiVault.json
+      eventHandlers:
+        - event: Compound(indexed address,uint256,uint256)
+          handler: handleCompound
+      file: ./src/MendiVault.ts

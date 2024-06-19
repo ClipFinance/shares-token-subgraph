@@ -68,6 +68,8 @@ dataSources:
           file: ./abis/ERC20.json
         - name: MendiVault
           file: ./abis/MendiVault.json
+        - name: Registry
+          file: ./abis/Registry.json
       eventHandlers:
         - event: VaultAdded(address,bytes)
           handler: handleVaultAdded

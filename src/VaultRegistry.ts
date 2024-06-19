@@ -4,14 +4,17 @@ import {
     MendiVault, 
     PCLBaseSwapInside, 
     Mendi, 
-    PHyperPoolSwapInside
+    PHyperPoolSwapInside,
   } from "../generated/templates";
+import { Registry } from "../generated/VaultRegistry/Registry";
 import { MendiVault as MendiVaultContract } from "../generated/templates/MendiVault/MendiVault";
+import { PHyperPoolSwapInside as PHyperPoolSwapInsideContact } from "../generated/templates/PHyperPoolSwapInside/PHyperPoolSwapInside";
 
 const REGISTRY_ADDRESS: Address = Address.fromString('0x02eA2e205695D31E0308FdC844Cbb2d41bf20275');
 
 export function handleVaultAdded(event: VaultAdded): void {
-  if (event.params.data.at(31) == 1) {
+  const strategyTypeId = event.params.data.at(31); 
+  if (strategyTypeId == 1) {
     const key  = event.params.vault;
     if (key.equals(Address.fromHexString("0x5988f6f5c2dc462a23e376017c905fa0c3d91c84"))) {
       //do this, because these contracts were added without needed information into VaultRegistry
@@ -33,18 +36,26 @@ export function handleVaultAdded(event: VaultAdded): void {
       //skip to create PCLBaseSwapInside, because presented directly in the manifest
     } else if (key.equals(Address.fromHexString("0xAf2f7B724F8FEc41AC7E4F9411464c5c78de3Fa8"))) {
       //skip to create PCLBaseSwapInside, because presented directly in the manifest
-    }  
-    else {
+    } 
+    //bsc
+    else if (key.equals(Address.fromHexString("0xEEea7dD3c998aFd9f298C041E4AA8A3c41b02A6C"))) {
+      //skip to create PCLBaseSwapInside, because presented directly in the manifest
+    } 
+    //base
+    else if (key.equals(Address.fromHexString("0xcd84d057f888A8827E63eC8C77E3F686575B84E7"))) {
+      //skip to create PCLBaseSwapInsied, because presented directly in the manifest
+    } else {
       if (event.params.data.toHex().length > 155) {
         PCLBaseSwapInside.create(Address.fromString(event.params.data.toHex().substring(154)));
         PHyperPoolSwapInside.create(event.params.vault);
       } else {
         PHyperPoolSwapInside.create(event.params.vault);
-        const pHyperPool = PHyperPoolSwapInside.bind(event.params.vault);
-        const registry = Registry.bind(REGISTRY_ADDRESS)
+        const pHyperPool = PHyperPoolSwapInsideContact.bind(event.params.vault);
+        const registry = Registry.bind(REGISTRY_ADDRESS);
+        PCLBaseSwapInside.create(registry.getAddressByIdentifier(pHyperPool.getIdentifiers().value2));
       }
     }
-  } else if (event.params.data.at(31) == 3) {
+  } else if (strategyTypeId == 3) {
     if (event.params.vault.equals(Address.fromString("0xF37d1F5DC65fe553745c79459004E94Af9F61Ff3"))) {    
       //skip to create MendiVault, because presented directly in the manifest
       Mendi.create(Address.fromString("0x17bcC8D209bf7859Ec711a3D719EE58878b48Df4"));
