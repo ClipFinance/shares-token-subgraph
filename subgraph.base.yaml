@@ -6,11 +6,11 @@ schema:
 dataSources: 
   - kind: ethereum/contract
     name: ReceiptNFT
-    network: bsc
+    network: base
     source:
       address: "0x4661Ac8b3Dbf8Db241Cc89a3EdeAD3c884900839"
       abi    : ReceiptNFT
-      startBlock: 32711287
+      startBlock: 12081406
     mapping: 
       kind: ethereum/events
       apiVersion: 0.0.8
@@ -28,11 +28,11 @@ dataSources:
       file: ./src/receiptNFT.ts
   - kind: ethereum/contract
     name: StrategyRouter
-    network: bsc
+    network: base
     source:
       address: "0x03A074D130144FcE6883F7EA3884C0a783d85Fb3"
       abi    : StrategyRouter
-      startBlock: 32711287
+      startBlock: 12081406
     mapping: 
       kind: ethereum/events
       apiVersion: 0.0.8
@@ -50,11 +50,11 @@ dataSources:
       file: ./src/strategyRouter.ts
   - kind: ethereum/contract
     name: VaultRegistry
-    network: bsc
+    network: base
     source:
       address: "0x5A9B5E22be45d04c753863A916c4311f07bd4dF0"
       abi    : VaultRegistry
-      startBlock: 36185914
+      startBlock: 13588997
     mapping: 
       kind: ethereum/events
       apiVersion: 0.0.8
@@ -75,37 +75,12 @@ dataSources:
           handler: handleVaultAdded
       file: ./src/vaultRegistry.ts
   - kind: ethereum/contract
-    name: PHyperPoolUSDCUSDT100
-    network: bsc
-    source:
-      abi: PHyperPoolSwapInside
-      address: "0xEEea7dD3c998aFd9f298C041E4AA8A3c41b02A6C"
-      startBlock: 35270298 
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.8
-      language: wasm/assemblyscript
-      entities:
-        - Burned
-        - Minted
-      abis:
-        - name: PHyperPoolSwapInside
-          file: ./abis/PHyperPoolSwapInside.json
-        - name: ERC20
-          file: ./abis/ERC20.json
-      eventHandlers:
-        - event: Burned(address,uint256,uint256,uint256,uint128)
-          handler: handleBurned
-        - event: Minted(address,uint256,uint256,uint256,uint128)
-          handler: handleMinted
-      file: ./src/PCLBaseSwapInside.ts
-  - kind: ethereum/contract
-    name: PCLBaseUSDCUSDT100
-    network: bsc
+    name: PCLBaseSwapInsideUSDCUSDT100
+    network: base
     source:
       abi: PCLBaseSwapInside
-      address: "0x7811D7B33747F854cf918b9b64Ee4531944467C0"
-      startBlock: 35270305
+      address: "0xcd84d057f888A8827E63eC8C77E3F686575B84E7"
+      startBlock: 13587613
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.8
@@ -144,7 +119,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: PCLBaseSwapInside
-    network: bsc
+    network: base
     source:
       abi: PCLBaseSwapInside
     mapping:
@@ -184,7 +159,7 @@ templates:
       file: ./src/PCLBaseSwapInside.ts
   - kind: ethereum/contract
     name: PHyperPoolSwapInside
-    network: bsc
+    network: base
     source:
       abi: PHyperPoolSwapInside
     mapping:
@@ -207,7 +182,7 @@ templates:
       file: ./src/PCLBaseSwapInside.ts
   - kind: ethereum/contract
     name: MendiVault
-    network: bsc
+    network: base
     source:
       abi: MendiVault
     mapping:
@@ -227,7 +202,7 @@ templates:
       file: ./src/MendiVault.ts
   - kind: ethereum/contract
     name: Mendi
-    network: bsc
+    network: base
     source:
       abi: MendiLeverage
     mapping:
@@ -247,3 +222,5 @@ templates:
         - event: Compound(indexed address,uint256,uint256)
           handler: handleCompound
       file: ./src/MendiVault.ts
+    
+    

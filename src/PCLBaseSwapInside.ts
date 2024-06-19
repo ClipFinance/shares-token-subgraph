@@ -51,8 +51,14 @@ export function handleTransferSingle(event: TransferSingleEvent): void {
 
 function doDeposit(event: DepositEvent): void {
   const pclContract = PCLBaseSwapInside.bind(event.address);
-  const token0 = pclContract.token0();
-  const token1 = pclContract.token1();
+  const token0Result = pclContract.try_token0();
+  if (token0Result.reverted) {
+    var token0 = pclContract.tokenA();
+    var token1 = pclContract.tokenB();
+  } else {
+    token0 = token0Result.value;
+    token1 = pclContract.token1();
+  }
   const hyperPoolContract = pclContract.liquidityHypervisor();
 
   const mintedBurned = getMintedBurned(hyperPoolContract);
