@@ -70,6 +70,8 @@ dataSources:
           file: ./abis/MendiVault.json
         - name: Registry
           file: ./abis/Registry.json
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
       eventHandlers:
         - event: VaultAdded(address,bytes)
           handler: handleVaultAdded

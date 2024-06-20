@@ -14,11 +14,8 @@ import {
 } from "../generated/templates/PHyperPoolSwapInside/PHyperPoolSwapInside";
 
 import { TransferSingle as TransferSingleEvent} from "../generated/templates/PCLBaseSwapInside/ERC1155";
-import { getUserShares, calcSharePrice, getSharePriceLazy } from "./utils";
+import { getUserShares, calcSharePrice, getSharePriceLazy, ZERO_ADDRESS } from "./utils";
 import { MintedBurned } from "../generated/schema";
-
-
-const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export function handleTransferSingle(event: TransferSingleEvent): void {
   const contract = event.address;
@@ -84,8 +81,14 @@ export function handleDepositPair(event: DepositPairEvent): void {
 
 export function handleWithdrawn(event: WithdrawnEvent): void {
   const pclContract = PCLBaseSwapInside.bind(event.address);
-  const token0 = pclContract.token0();
-  const token1 = pclContract.token1();
+  const token0Result = pclContract.try_token0();
+  if (token0Result.reverted) {
+    var token0 = pclContract.tokenA();
+    var token1 = pclContract.tokenB();
+  } else {
+    token0 = token0Result.value;
+    token1 = pclContract.token1();
+  }
   
   const hyperPoolContract = pclContract.liquidityHypervisor();
   const mintedBurned      = getMintedBurned(hyperPoolContract);
@@ -97,8 +100,14 @@ export function handleWithdrawn(event: WithdrawnEvent): void {
 
 export function handleWithdrawnNonCompounding(event: WithdrawnNonCompoundingEvent): void {
   const pclContract = PCLBaseSwapInside.bind(event.address);
-  const token0 = pclContract.token0();
-  const token1 = pclContract.token1();
+  const token0Result = pclContract.try_token0();
+  if (token0Result.reverted) {
+    var token0 = pclContract.tokenA();
+    var token1 = pclContract.tokenB();
+  } else {
+    token0 = token0Result.value;
+    token1 = pclContract.token1();
+  }
   const hyperPoolContract = pclContract.liquidityHypervisor();
 
   const mintedBurned = getMintedBurned(hyperPoolContract);
@@ -110,8 +119,14 @@ export function handleWithdrawnNonCompounding(event: WithdrawnNonCompoundingEven
 
 export function handleWithdrawnPair(event: WithdrawnPairEvent): void {
   const pclContract = PCLBaseSwapInside.bind(event.address);
-  const tokenA = pclContract.token0();
-  const tokenB = pclContract.token1();
+  const token0Result = pclContract.try_token0();
+  if (token0Result.reverted) {
+    var tokenA = pclContract.tokenA();
+    var tokenB = pclContract.tokenB();
+  } else {
+    tokenA = token0Result.value;
+    tokenB = pclContract.token1();
+  }
   const hyperPoolContract = pclContract.liquidityHypervisor();
   const mintedBurned      = getMintedBurned(hyperPoolContract);
   const compound          = event.params.compounding;

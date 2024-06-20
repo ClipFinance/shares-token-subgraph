@@ -59,7 +59,7 @@ export function getSharePriceLazy(contract: Bytes, token0: Address, token1: Addr
 }
 
 export function calcSharePrice(balance: BigInt, shares: BigInt): BigInt {
-  return balance.times(BigInt.fromString("1_000_000_000_000_000_000")).div(shares);
+  return shares.gt(BigInt.zero()) ? balance.times(BigInt.fromString("1_000_000_000_000_000_000")).div(shares) : BigInt.zero();
 }
 
 export function calcBalance(oldBalance: BigInt, shares: BigInt, sharesBurned: BigInt) : BigInt {

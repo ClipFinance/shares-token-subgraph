@@ -8,7 +8,7 @@
     "prepare:bsc": "cp -a subgraph.bsc.yaml subgraph.yaml",
     "prepare:base": "cp -a subgraph.base.yaml subgraph.yaml",
     "deploy:linea": "goldsky subgraph deploy clip-finance-shares-token/v2.9",
-    "deploy:bsc"  : "goldsky subgraph deploy clip-finance-shares-token_bsc/v2.10",
+    "deploy:bsc"  : "goldsky subgraph deploy clip-finance-shares-token_bsc/v2.14",
     "deploy:base" : "goldsky subgraph deploy clip-finance-shares-token_base/v2.9",
     "create-local": "graph create --node http://localhost:8020/ clip-finance-shares-token",
     "remove-local": "graph remove --node http://localhost:8020/ clip-finance-shares-token",

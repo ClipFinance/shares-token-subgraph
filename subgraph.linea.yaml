@@ -66,10 +66,12 @@ dataSources:
           file: ./abis/VaultRegistry.json
         - name: ERC20
           file: ./abis/ERC20.json
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: Registry
           file: ./abis/Registry.json
+        - name: PHyperPoolSwapInside
+          file: ./abis/PHyperPoolSwapInside.json
       eventHandlers:
         - event: VaultAdded(address,bytes)
           handler: handleVaultAdded
@@ -414,7 +416,7 @@ dataSources:
     name: MendiNonLevETH
     network: linea
     source:
-      abi: MendiVault
+      abi: Vault
       address: "0xF37d1F5DC65fe553745c79459004E94Af9F61Ff3"
       startBlock: 4316016
     mapping:
@@ -424,19 +426,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
   - kind: ethereum/contract
     name: MendiNonLevDAI
     network: linea
     source:
-      abi: MendiVault
+      abi: Vault
       address: "0xb79F535a1aad915348eA278E54C37be6C568e93c"
       startBlock: 4255354
     mapping:
@@ -446,19 +448,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
   - kind: ethereum/contract
     name: MendiNonLevUSDT
     network: linea
     source:
-      abi: MendiVault
+      abi: Vault
       address: "0x0c3897769d57ef1f0721ff291c766709a02991de"
       startBlock: 4255339
     mapping:
@@ -468,19 +470,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
   - kind: ethereum/contract
     name: MendiNonLevUSDC
     network: linea
     source:
-      abi: MendiVault
+      abi: Vault
       address: "0xB99196cbe4e2B85d0e8597A3f25967Bf303D6388"
       startBlock: 4241801
     mapping:
@@ -490,19 +492,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
   - kind: ethereum/contract
     name: MendiNonLevWBTC
     network: linea
     source:
-      abi: MendiVault
+      abi: Vault
       address: "0xa326b8c677986cA406c7e5567D996371E200057E"
       startBlock: 4238366
     mapping:
@@ -512,19 +514,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
   - kind: ethereum/contract
     name: MendiNonLevwstETH
     network: linea
     source:
-      abi: MendiVault
+      abi: Vault
       address: "0x9EbB90358d60e36688baD15B8a914E074b1A1C9b"
       startBlock: 4237885
     mapping:
@@ -534,19 +536,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
   - kind: ethereum/contract
     name: MendiLevDAI
     network: linea
     source:
-      abi: MendiVault
+      abi: Vault
       address: "0xB00Ad70C6A0d58372199AbEB33F46058d02FFBBC"
       startBlock: 4232537
     mapping:
@@ -556,19 +558,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
   - kind: ethereum/contract
     name: MendiLevUSDT
     network: linea
     source:
-      abi: MendiVault
+      abi: Vault
       address: "0x2528c7b8c7c0d6ab4461bbaa14f5905ea93ad837"
       startBlock: 4232483
     mapping:
@@ -578,19 +580,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
   - kind: ethereum/contract
     name: MendiLevwstETH
     network: linea
     source:
-      abi: MendiVault
+      abi: Vault
       address: "0xfdC83eC519A4E24edC88E5bD57298edd5451651f"
       startBlock: 4232349
     mapping:
@@ -600,19 +602,19 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
   - kind: ethereum/contract
     name: MendiLevUSDC
     network: linea
     source:
-      abi: MendiVault
+      abi: Vault
       address: "0xe3638a0B74b5A5C4a220163A05EB6b334e8a165d"
       startBlock: 4232325
     mapping:
@@ -622,14 +624,70 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
+  - kind: ethereum/contract
+    name: NHyperLPoolUSDCUSDT100NileCl
+    network: linea
+    source:
+      abi: HyperLPool
+      address: "0x03e9d9892475445ea0Ad323C5B9f369fD3c904de"
+      startBlock: 5232938 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+        - Transfer
+      abis:
+        - name: HyperLPool
+          file: ./abis/HyperLPool.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(indexed address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(indexed address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/HyperLPool.ts
+  - kind: ethereum/contract
+    name: NHyperLPoolUSDCWETH250NileCl
+    network: linea
+    source:
+      abi: HyperLPool
+      address: "0x568FA0D489A75eb88d75cB688D1FC4fCecC628b7"
+      startBlock: 5157240
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+        - Transfer
+      abis:
+        - name: HyperLPool
+          file: ./abis/HyperLPool.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(indexed address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(indexed address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/HyperLPool.ts
   - kind: ethereum/contract
     name: PHyperPoolSwapInsideUSDCUSDT100
     network: linea
@@ -915,10 +973,10 @@ templates:
           handler: handleMinted
       file: ./src/PCLBaseSwapInside.ts
   - kind: ethereum/contract
-    name: MendiVault
+    name: Vault
     network: linea
     source:
-      abi: MendiVault
+      abi: Vault
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.8
@@ -926,19 +984,19 @@ templates:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
   - kind: ethereum/contract
-    name: Mendi
+    name: Leverage
     network: linea
     source:
-      abi: MendiLeverage
+      abi: Leverage
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.8
@@ -946,15 +1004,40 @@ templates:
       entities:
         - Compound
       abis:
-        - name: MendiLeverage
-          file: ./abis/MendiLeverage.json
+        - name: Leverage
+          file: ./abis/Leverage.json
         - name: ERC20
           file: ./abis/ERC20.json
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
       eventHandlers:
         - event: Compound(indexed address,uint256,uint256)
           handler: handleCompound
-      file: ./src/MendiVault.ts
-    
-    
+      file: ./src/Vault.ts
+  - kind: ethereum/contract
+    name: HyperLPool
+    network: linea
+    source:
+      abi: HyperLPool
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+        - Transfer
+      abis:
+        - name: HyperLPool
+          file: ./abis/HyperLPool.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/HyperLPool.ts
+  
