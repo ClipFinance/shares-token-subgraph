@@ -61,13 +61,14 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - VaultAdded
+        - StakingPool
       abis:
         - name: VaultRegistry
           file: ./abis/VaultRegistry.json
         - name: ERC20
           file: ./abis/ERC20.json
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: Registry
           file: ./abis/Registry.json
         - name: PHyperPoolSwapInside
@@ -183,10 +184,10 @@ templates:
           handler: handleMinted
       file: ./src/PCLBaseSwapInside.ts
   - kind: ethereum/contract
-    name: MendiVault
+    name: Vault
     network: base
     source:
-      abi: MendiVault
+      abi: Vault
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.8
@@ -194,19 +195,19 @@ templates:
       entities:
         - Transfer
       abis:
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
   - kind: ethereum/contract
-    name: Mendi
+    name: Leverage
     network: base
     source:
-      abi: MendiLeverage
+      abi: Leverage
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.8
@@ -214,15 +215,47 @@ templates:
       entities:
         - Compound
       abis:
-        - name: MendiLeverage
-          file: ./abis/MendiLeverage.json
+        - name: Leverage
+          file: ./abis/Leverage.json
         - name: ERC20
           file: ./abis/ERC20.json
-        - name: MendiVault
-          file: ./abis/MendiVault.json
+        - name: Vault
+          file: ./abis/Vault.json
       eventHandlers:
         - event: Compound(indexed address,uint256,uint256)
           handler: handleCompound
-      file: ./src/MendiVault.ts
+      file: ./src/Vault.ts
+  - kind: ethereum/contract
+    name: HyperLPool
+    network: base
+    source:
+      abi: HyperLPool
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Burned
+        - Minted
+        - Transfer
+        - StakingPool
+      abis:
+        - name: HyperLPool
+          file: ./abis/HyperLPool.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Burned(address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Burned(indexed address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
+        - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+        - event: Minted(indexed address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/HyperLPool.ts
+  
     
     

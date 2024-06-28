@@ -1,8 +1,8 @@
 import { BigInt, Bytes, Address } from "@graphprotocol/graph-ts";
 import { Transfer as TransferEvent, Vault } from "../generated/templates/Vault/Vault";
-import { Compound as ComoundEvent, Leverage } from "../generated/templates/Leverage/Leverage";
+import { Compound as CompoundEvent, Leverage } from "../generated/templates/Leverage/Leverage";
 import { getUser, getSharePrice, getUserShares, getSharePriceLazy, ZERO_ADDRESS } from "./utils";
-
+import { StrategyVault } from "../generated/schema";
 
 export function handleTransfer(event: TransferEvent): void {
   const from = event.params.from;
@@ -34,12 +34,14 @@ export function handleTransfer(event: TransferEvent): void {
   }
 }
 
-export function handleCompound(event: ComoundEvent): void {
+export function handleCompound(event: CompoundEvent): void {
   const leverage = Leverage.bind(event.address);
   const depositToken  = leverage.depositToken();
-  const vault         = leverage.vault();
-  const sharePrice    = getSharePriceLazy(vault, depositToken, Address.fromString(ZERO_ADDRESS));
-  const vaultContract = Vault.bind(vault);
-  sharePrice.price0   = vaultContract.getPricePerFullShare();  
-  sharePrice.save();  
+  const vault         = StrategyVault.load(event.address);
+  if (vault != null) {
+    const sharePrice    = getSharePriceLazy(vault.vault, depositToken, Address.fromString(ZERO_ADDRESS));
+    const vaultContract = Vault.bind(Address.fromString(vault.vault.toHexString()));
+    sharePrice.price0   = vaultContract.getPricePerFullShare();  
+    sharePrice.save();  
+  }
 }

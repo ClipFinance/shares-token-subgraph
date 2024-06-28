@@ -61,6 +61,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - VaultAdded
+        - StakingPool
       abis:
         - name: VaultRegistry
           file: ./abis/VaultRegistry.json
@@ -647,6 +648,7 @@ dataSources:
         - Burned
         - Minted
         - Transfer
+        - StakingPool
       abis:
         - name: HyperLPool
           file: ./abis/HyperLPool.json
@@ -675,6 +677,7 @@ dataSources:
         - Burned
         - Minted
         - Transfer
+        - StakingPool
       abis:
         - name: HyperLPool
           file: ./abis/HyperLPool.json
@@ -1027,6 +1030,7 @@ templates:
         - Burned
         - Minted
         - Transfer
+        - StakingPool
       abis:
         - name: HyperLPool
           file: ./abis/HyperLPool.json
@@ -1035,7 +1039,11 @@ templates:
       eventHandlers:
         - event: Burned(address,uint256,uint256,uint256,uint128)
           handler: handleBurned
+        - event: Burned(indexed address,uint256,uint256,uint256,uint128)
+          handler: handleBurned
         - event: Minted(address,uint256,uint256,uint256,uint128)
+          handler: handleMinted
+        - event: Minted(indexed address,uint256,uint256,uint256,uint128)
           handler: handleMinted
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer

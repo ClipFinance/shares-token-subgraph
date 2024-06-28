@@ -132,3 +132,12 @@ type Cycle @entity {
   strategiesBalanceWithCompoundAndBatchDepositsInUsd: BigInt
   pricePerShare: BigInt
 }
+
+type StakingPool @entity(immutable: true) {
+  id: Bytes!
+}
+
+type StrategyVault @entity(immutable: true) {
+  id: Bytes!
+  vault: Bytes!
+}

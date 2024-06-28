@@ -1,7 +1,6 @@
-import { BigInt } from "@graphprotocol/graph-ts";
 import { AllocateToStrategies as AllocateToStrategiesEvent, StrategyRouter } from "../generated/StrategyRouter/StrategyRouter";
 
-import { ZERO_ADDRESS, getCycle, getNFT, getUserShares, getUserSharesForNFT } from "./utils";
+import { getCycle } from "./utils";
 
 export function handleAllocateToStrategies(allocateToStrategies: AllocateToStrategiesEvent): void {
   const cycleId = allocateToStrategies.params.closedCycleId;

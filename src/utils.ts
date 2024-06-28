@@ -1,10 +1,12 @@
 import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts";
-import {  SharePrice, User, UserShare, NFT, Cycle } from "../generated/schema";
+import {  SharePrice, User, UserShare, NFT, Cycle, StakingPool, StrategyVault } from "../generated/schema";
 import { ERC20 } from "../generated/templates/PCLBaseSwapInside/ERC20";
 import { ReceiptNFT } from "../generated/ReceiptNFT/ReceiptNFT";
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const SHARES_TOKEN = "0xDD49bF14cAAE7a22bb6a58A76C4E998054859D9a";
+export const NILE_STAKING_POOL1 = Address.fromString("0x74D80005D4abd30A458931D0e12bbD3c48fa73a8");
+export const NILE_STAKING_POOL2 = Address.fromString("0x8CBe2EBEf4eD8b26f6b9143f73ae66cc538bAE99");
 
 export function getUserShares(id: Bytes, contract: Bytes): UserShare {
   const userShares = UserShare.load(id.concat(contract));
@@ -62,7 +64,7 @@ export function calcSharePrice(balance: BigInt, shares: BigInt): BigInt {
   return shares.gt(BigInt.zero()) ? balance.times(BigInt.fromString("1_000_000_000_000_000_000")).div(shares) : BigInt.zero();
 }
 
-export function calcBalance(oldBalance: BigInt, shares: BigInt, sharesBurned: BigInt) : BigInt {
+export function calcBalance(oldBalance: BigInt, shares: BigInt, sharesBurned: BigInt): BigInt {
   return oldBalance.times(shares).div(shares.plus(sharesBurned));
 }
 
@@ -85,11 +87,11 @@ export function getNFT(receiptId: BigInt, contractAddress: Address): NFT {
   return nftNew;
 }
 
-export function getUserSharesForNFT(userId: Bytes) : UserShare {
+export function getUserSharesForNFT(userId: Bytes): UserShare {
   return getUserShares(userId, Address.fromString(SHARES_TOKEN));
 }
 
-export function getCycle(cycleId: BigInt) : Cycle {
+export function getCycle(cycleId: BigInt): Cycle {
   const cycle = Cycle.load(cycleId.toHexString());
   if (cycle != null) {
     return cycle;
@@ -97,4 +99,18 @@ export function getCycle(cycleId: BigInt) : Cycle {
   const newCycle = new Cycle(cycleId.toHexString());
   newCycle.save();
   return newCycle;
+}
+
+export function isStakingPool(contract: Address): boolean {
+  if (contract.equals(NILE_STAKING_POOL1) || contract.equals(NILE_STAKING_POOL2)) {
+    return true;
+  }
+  const stakingPool = StakingPool.load(contract);
+  return stakingPool != null;
+}
+
+export function createStrategyVault(vault: Address, strategy: Address): void {
+  const strategyVault = new StrategyVault(strategy);
+  strategyVault.vault = vault;
+  strategyVault.save();
 }
