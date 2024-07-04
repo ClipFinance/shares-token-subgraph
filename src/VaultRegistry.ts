@@ -58,7 +58,8 @@ export function handleVaultAdded(event: VaultAdded): void {
         PCLBaseSwapInside.create(registry.getAddressByIdentifier(pHyperPool.getIdentifiers().value2));
       }
     }
-  } else if ((strategyTypeId == 3) || (strategyTypeId == 7)) {
+    //mendi, zerolend and stargate
+  } else if ((strategyTypeId == 3) || (strategyTypeId == 7) || (strategyTypeId == 8)) {
     if (key.equals(Address.fromString("0xF37d1F5DC65fe553745c79459004E94Af9F61Ff3"))) {    
       //skip to create MendiVault, because presented directly in the manifest
       createStrategyVault(Address.fromString("0xF37d1F5DC65fe553745c79459004E94Af9F61Ff3"), 
