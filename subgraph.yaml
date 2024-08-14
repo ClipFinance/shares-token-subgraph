@@ -654,6 +654,8 @@ dataSources:
           file: ./abis/HyperLPool.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: Voter_V5
+          file: ./abis/Voter_V5.json
       eventHandlers:
         - event: Burned(indexed address,uint256,uint256,uint256,uint128)
           handler: handleBurned
@@ -683,6 +685,8 @@ dataSources:
           file: ./abis/HyperLPool.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: Voter_V5
+          file: ./abis/Voter_V5.json
       eventHandlers:
         - event: Burned(indexed address,uint256,uint256,uint256,uint128)
           handler: handleBurned
@@ -1036,6 +1040,8 @@ templates:
           file: ./abis/HyperLPool.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: Voter_V5
+          file: ./abis/Voter_V5.json
       eventHandlers:
         - event: Burned(address,uint256,uint256,uint256,uint128)
           handler: handleBurned

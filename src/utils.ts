@@ -2,11 +2,13 @@ import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts";
 import {  SharePrice, User, UserShare, NFT, Cycle, StakingPool, StrategyVault } from "../generated/schema";
 import { ERC20 } from "../generated/templates/PCLBaseSwapInside/ERC20";
 import { ReceiptNFT } from "../generated/ReceiptNFT/ReceiptNFT";
+import { Voter_V5 } from "../generated/templates/HyperLPool/Voter_V5";
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const SHARES_TOKEN = "0xDD49bF14cAAE7a22bb6a58A76C4E998054859D9a";
 export const NILE_STAKING_POOL1 = Address.fromString("0x74D80005D4abd30A458931D0e12bbD3c48fa73a8");
 export const NILE_STAKING_POOL2 = Address.fromString("0x8CBe2EBEf4eD8b26f6b9143f73ae66cc538bAE99");
+export const VOTER_V5 = Address.fromString("0x0B2c83B6e39E32f694a86633B4d1Fe69d13b63c5");
 
 export function getUserShares(id: Bytes, contract: Bytes): UserShare {
   const userShares = UserShare.load(id.concat(contract));
@@ -105,7 +107,15 @@ export function isStakingPool(contract: Address): boolean {
   if (contract.equals(NILE_STAKING_POOL1) || contract.equals(NILE_STAKING_POOL2)) {
     return true;
   }
-  const stakingPool = StakingPool.load(contract);
+  let stakingPool = StakingPool.load(contract);
+  if (stakingPool == null) {
+    const voter = Voter_V5.bind(VOTER_V5);
+    const address = voter.gauges(contract);
+    if (address.notEqual(Address.fromString(ZERO_ADDRESS))) {
+        stakingPool = new StakingPool(address);
+        stakingPool.save();
+    } 
+  }
   return stakingPool != null;
 }
 

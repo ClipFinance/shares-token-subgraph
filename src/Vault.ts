@@ -7,7 +7,7 @@ import { StrategyVault } from "../generated/schema";
 export function handleTransfer(event: TransferEvent): void {
   const from = event.params.from;
   const to   = event.params.to;
-  if ((from.toHex() != ZERO_ADDRESS) && (to.toHex() == ZERO_ADDRESS)) {
+  if (from.toHex() != ZERO_ADDRESS) {
     const vault = Vault.bind(event.address);
     const depositToken = vault.depositToken();
     const userShares = getUserShares(from, event.address);
@@ -19,7 +19,8 @@ export function handleTransfer(event: TransferEvent): void {
     sharePrice.save();
     user.balance = sharePrice.price0.times(userShares.shares0).div(BigInt.fromString("1_000_000_000_000_000_000"));
     user.save();
-  } else if ((to.toHex() != ZERO_ADDRESS) && (from.toHex() == ZERO_ADDRESS)) {
+  } 
+  if (to.toHex() != ZERO_ADDRESS) {
     const vault = Vault.bind(event.address);
     const depositToken = vault.depositToken();
     const user = getUser(to, event.address, depositToken);

@@ -10,7 +10,7 @@ import {
 import { Registry } from "../generated/VaultRegistry/Registry";
 import { Vault as VaultContract } from "../generated/templates/Vault/Vault";
 import { PHyperPoolSwapInside as PHyperPoolSwapInsideContact } from "../generated/templates/PHyperPoolSwapInside/PHyperPoolSwapInside";
-import { StakingPool, StrategyVault } from "../generated/schema";
+import { StakingPool } from "../generated/schema";
 import { createStrategyVault } from "./utils";
 
 const REGISTRY_ADDRESS: Address = Address.fromString('0x02eA2e205695D31E0308FdC844Cbb2d41bf20275');
@@ -103,8 +103,8 @@ export function handleVaultAdded(event: VaultAdded): void {
     } else if (key.equals(Address.fromString("0xfdC83eC519A4E24edC88E5bD57298edd5451651f"))) {    
       //skip to create MendiVault, because presented directly in the manifest
       createStrategyVault(Address.fromString("0xfdC83eC519A4E24edC88E5bD57298edd5451651f"),
-        Address.fromString("0xfdC83eC519A4E24edC88E5bD57298edd5451651f"));
-      Leverage.create(Address.fromString("0xfdC83eC519A4E24edC88E5bD57298edd5451651f"));
+        Address.fromString("0x85C07250E362caE8a418C13f1a6a8f2BAc8cd7CB"));
+      Leverage.create(Address.fromString("0x85C07250E362caE8a418C13f1a6a8f2BAc8cd7CB"));
     } else if (key.equals(Address.fromString("0xe3638a0B74b5A5C4a220163A05EB6b334e8a165d"))) {    
       //skip, because presented directly in the manifest
       createStrategyVault(Address.fromString("0xe3638a0B74b5A5C4a220163A05EB6b334e8a165d"), 
