@@ -9,6 +9,7 @@ import {
   calcSharePrice, 
   getSharePriceLazy, 
   ZERO_ADDRESS, 
+  STAKING_CONTRACT,
   isStakingPool
 } from "./utils";
 import { BigInt } from "@graphprotocol/graph-ts";
@@ -43,11 +44,11 @@ export function handleTransfer(event: TransferEvent): void {
   const fromUserShares = getUserShares(event.params.from, event.address);
   const toUserShares   = getUserShares(event.params.to, event.address);
   if (!isStakingPool(event.params.from) && !isStakingPool(event.params.to)) {
-    if (event.params.from.toHex() != ZERO_ADDRESS) {
+    if ((event.params.from.toHex() != ZERO_ADDRESS) && (event.params.from.toHex() != STAKING_CONTRACT)) {
       fromUserShares.shares1 = fromUserShares.shares1.gt(event.params.value) ? fromUserShares.shares1.minus(event.params.value) : BigInt.zero();
       fromUserShares.save()
     }
-    if (event.params.to.toHex() != ZERO_ADDRESS) {
+    if ((event.params.to.toHex() != ZERO_ADDRESS)&& (event.params.to.toHex() != STAKING_CONTRACT)) {
       toUserShares.shares1 = toUserShares.shares1.plus(event.params.value);
       toUserShares.save()
     }

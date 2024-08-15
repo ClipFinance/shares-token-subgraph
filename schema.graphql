@@ -141,3 +141,22 @@ type StrategyVault @entity(immutable: true) {
   id: Bytes!
   vault: Bytes!
 }
+
+type Stake @entity(immutable: true) {
+  id: Bytes!
+  token: Bytes!
+  user : Bytes!
+  amount: BigInt!
+  averageDepositTime: BigInt!
+  cumulativeBalance: BigInt!
+  tokenCumulativeStaked: BigInt!
+}
+
+type Unstake @entity(immutable: true) {
+  id: Bytes!
+  token: Bytes!
+  user : Bytes!
+  amount: BigInt!
+  remainingCumulativeBalance: BigInt!
+  tokenCumulativeStaked: BigInt!
+}

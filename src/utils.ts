@@ -6,6 +6,7 @@ import { Voter_V5 } from "../generated/templates/HyperLPool/Voter_V5";
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const SHARES_TOKEN = "0xDD49bF14cAAE7a22bb6a58A76C4E998054859D9a";
+export const STAKING_CONTRACT = "0x8bbc8f21aabC8ecb5a566cE6013842E1F3c8fCC1";
 export const NILE_STAKING_POOL1 = Address.fromString("0x74D80005D4abd30A458931D0e12bbD3c48fa73a8");
 export const NILE_STAKING_POOL2 = Address.fromString("0x8CBe2EBEf4eD8b26f6b9143f73ae66cc538bAE99");
 export const VOTER_V5 = Address.fromString("0x0B2c83B6e39E32f694a86633B4d1Fe69d13b63c5");

@@ -915,6 +915,29 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/SharesToken.ts
+  - kind: ethereum/contract
+    name: AcceleratingDistributor
+    network: linea
+    source:
+      abi: AcceleratingDistributor
+      address: "0x8bbc8f21aabC8ecb5a566cE6013842E1F3c8fCC1"
+      startBlock: 7769590 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Stake
+        - Unstake
+      abis:
+        - name: AcceleratingDistributor
+          file: ./abis/AcceleratingDistributor.json
+      eventHandlers:
+        - event: Stake(indexed address,indexed address,uint256,uint256,uint256,uint256)
+          handler: handleStake
+        - event: Unstake(indexed address,indexed address,uint256,uint256,uint256)
+          handler: handleUnstake
+      file: ./src/AcceleratingDistributor.ts
 templates:
   - kind: ethereum/contract
     name: PCLBaseSwapInside
