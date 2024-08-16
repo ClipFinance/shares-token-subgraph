@@ -932,6 +932,8 @@ dataSources:
       abis:
         - name: AcceleratingDistributor
           file: ./abis/AcceleratingDistributor.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: Stake(indexed address,indexed address,uint256,uint256,uint256,uint256)
           handler: handleStake
